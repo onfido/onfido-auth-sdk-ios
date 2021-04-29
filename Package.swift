@@ -10,7 +10,7 @@ let package = Package(
     products: [
         .library(
             name: "OnfidoAuth",
-            targets: ["OnfidoAuth"]),
+            targets: ["OnfidoAuth"])
     ],
     targets: [
         .binaryTarget(
