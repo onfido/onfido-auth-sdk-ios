@@ -16,12 +16,12 @@ let package = Package(
         .binaryTarget(
             name: "OnfidoAuth",
             url: "https://github.com/onfido/onfido-auth-sdk-ios/releases/download/0.1.0/OnfidoAuth-v0.1.0.zip",
-            checksum: "c95720f2fdd6f1fd046ee9b30adf0fad968e96075cc13418e0f3493637d6bf6d"
+            checksum: "e8829bea35c45ae3c77aed134841e5e825443c8ec5769d4365975807b37ca95e"
         ),
         .binaryTarget(
             name: "FaceTecSDK",
             url: "https://github.com/onfido/onfido-auth-sdk-ios/releases/download/0.1.0/FaceTecSDK-v9.1.2.zip",
-            checksum: "cc412c108730a067695e68ed33189c4d142f2443a2e6f3ea60a51e36d9054e28"
+            checksum: "4d33191e6b5401f4f65d022119fd612e2b6c15b4912c56d1d06cac6efdf53f16"
         )
     ]
 )
