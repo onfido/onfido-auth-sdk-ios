@@ -10,5 +10,5 @@ Pod::Spec.new do |s|
   s.vendored_frameworks   = 'OnfidoAuth.xcframework'
   s.frameworks            = 'CoreGraphics', 'Foundation', 'UIKit'
 
-  s.dependency 'OnfidoFaceAuthSDK', '9.1.2'
+  s.dependency 'OnfidoFaceAuthSDK', '9.3.0'
 end
