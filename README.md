@@ -77,6 +77,7 @@ flow.run(from: self)
 
 Congratulations! You have successfully started the flow. Read the next sections to learn how to handle callbacks and customise the SDK.
 
+
 ## Handling callbacks
 
 To receive the response from the flow, you should pass a callback to the instance of `OnfidoAuthFlow`. Typically, on success, you would create a check on your backend server.
@@ -141,6 +142,7 @@ The following are required when configuring the SDK:
 If these are not included, you may encounter the following errors when calling the `build()` method on the `OnfidoAuthConfigBuilder` instance:
 
 - `OnfidoAuthConfigError.missingToken` -> no or empty SDK token is provided
+
 
 ## Customising the SDK
 
