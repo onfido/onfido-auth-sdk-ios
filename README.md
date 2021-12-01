@@ -108,7 +108,7 @@ let responseHandler: (OnfidoAuthResponse) -> Void = { response in
 
 ### Success handling
 
-Success is when the user has reached the end of the flow. `AuthenticationResult` has the `verified`, `uuid` and `token` properties. If authentication was successful, `verified` will be `true` and `token` will be the JWT. There should always be a `uuid`, whether authentication succeeded or failed.
+Success is when the user has reached the end of the flow. `AuthenticationResult` has the `verified`, `uuid` and `token` properties. If authentication was successful, `verified` will be `true` and `token` will be the JWT. This JWT token can be used to validate the response. There should always be a `uuid`, whether authentication succeeded or failed.
 
 ### Error handling
 
