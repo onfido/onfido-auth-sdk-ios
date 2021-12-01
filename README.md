@@ -5,11 +5,11 @@
 * [Overview](#overview)
 * [Getting started](#getting-started)
 * [Handling callbacks](#handling-callbacks)
-* [Customising the SDK](#customising-the-sdk)
+* [Customizing the SDK](#customizing-the-sdk)
 
 ## Overview
 
-The Onfido iOS Authentication SDK provides a set of screens for iOS applications to allow the capturing of 3D face scans for the purpose of identity authentication.
+The Onfido iOS Authentication SDK provides a set of screens for iOS applications to capture 3D face scans for the purpose of identity authentication.
 
 <p>
   <img src="screenshots/allow_camera_access.png" width="120">
@@ -26,7 +26,7 @@ The Onfido iOS Authentication SDK provides a set of screens for iOS applications
 The SDK supports iOS 11+.
 
 
-### Adding the SDK dependency
+### 1. Adding the SDK dependency
 
 #### Using CocoaPods
 
@@ -44,21 +44,21 @@ The SDK is available with Swift Package Manager and you can include it in your p
 
 https://github.com/onfido/onfido-auth-sdk-ios.git
 
-### App permissions
+### 2. App permissions
 
-The SDK makes use of the device’s camera. You will be required to have the `NSCameraUsageDescription` key in your application’s Info.plist file.
+The SDK uses the device's camera. You must have the `NSCameraUsageDescription` key in your application's Info.plist file.
 
 ```xml
 <key>NSCameraUsageDescription</key>
 <string>Required for facial capture</string>
 ```
 
-### Creating the SDK configuration
+### 3. Creating the SDK configuration
 Once you have added the SDK as a dependency and you have an applicant ID, you can configure the SDK:
 
 ```swift
 let config = try! OnfidoAuthConfig.builder()
-    .withSDKToken("YOUR_SDK_TOKEN_HERE")
+    .withSDKToken("<YOUR_SDK_TOKEN_HERE>")
     .withRetryCount(2) // Optional, default is 0
     .build()
 
@@ -68,21 +68,21 @@ let flow = OnfidoAuthFlow(withConfiguration: config)
     })
 ```
 
-### Starting the flow
+### 4. Starting the flow
 Run the flow from the view controller you want the flow to be presented from e.g. `self`, where `self` is a view controller.
 
 ```swift
 flow.run(from: self)
 ```
 
-Congratulations! You have successfully started the flow. Read the next sections to learn how to handle callbacks and customise the SDK.
+You have now successfully started the flow. Read the next sections to learn how to handle callbacks and customize the SDK.
 
 
 ## Handling callbacks
 
-To receive the response from the flow, you should pass a callback to the instance of `OnfidoAuthFlow`. Typically, on success, you would create a check on your backend server.
+To receive the response from the flow, pass a callback to the instance of `OnfidoAuthFlow`. Typically, on success, you would create a check on your backend server.
 
-The response object passed to the callback may include the following attributes: `.success(AuthenticationResult)`, `.cancel(CancellationReason)` and `.error(Error)`.
+The response object passed to the callback can include the following attributes: `.success(AuthenticationResult)`, `.cancel(CancellationReason)` and `.error(Error)`.
 
 ```swift
 let responseHandler: (OnfidoAuthResponse) -> Void = { response in
@@ -94,7 +94,7 @@ let responseHandler: (OnfidoAuthResponse) -> Void = { response in
             // Flow cancelled by user
             // Reason can be:
             // .deniedConsent -> denied consent on consent screen
-            // .openedInLandscape -> face scan landscape
+            // .openedInLandscape -> face scan in landscape orientation
             // .openedInReversePortrait -> face scan upside down
             // .userExited -> tapped back button on first screen
         case .error(let error):
@@ -141,14 +141,14 @@ The following are required when configuring the SDK:
 
 If these are not included, you may encounter the following errors when calling the `build()` method on the `OnfidoAuthConfigBuilder` instance:
 
-- `OnfidoAuthConfigError.missingToken` -> no or empty SDK token is provided
+- `OnfidoAuthConfigError.missingToken` -> no SDK token or an empty string is provided
 
 
-## Customising the SDK
+## Customizing the SDK
 
 ### UI customization
 
-In order to enhance the user experience on the transition between your application and the SDK, you can customise some of the colours and fonts used in the SDK flow. Note that every customisation is optional, so if you do not specify a particular customisation or set it to `nil`, the default value will be used.
+In order to enhance the user experience on the transition between your application and the SDK, you can customize some of the colors and fonts used in the SDK flow. Note that every customization is optional, so if you do not specify a particular customization or set it to `nil`, the default value will be used.
 
 ```swift
 let appearance = OnfidoAuthAppearance(
@@ -189,7 +189,7 @@ let config = try! OnfidoAuthConfig.builder()
 | `fontMedium`     |    Name of font to use on medium text    |
 | `fontBold`     |    Name of font to use on bold text    |
 
-### Localisation
+### Localization
 
 The SDK comes with out-of-the-box translations for the following locales:
 
@@ -198,14 +198,14 @@ The SDK comes with out-of-the-box translations for the following locales:
 - French (fr) 🇫🇷
 - German (de) 🇩🇪
 
-### Language customisation
+### Language customization
 
 **Note:**
 
 - If the strings translations change it will result in a MINOR version change, therefore you are responsible for testing your translated layout in case you are using this feature.
-- When adding custom translations, please make sure you add the whole set of keys we have in the example `Localizable.strings` file [here](https://github.com/onfido/onfido-auth-sdk-ios/tree/main/localization).
+- When adding custom translations, please make sure you add the whole set of keys we have in the [example `Localizable.strings` file](https://github.com/onfido/onfido-auth-sdk-ios/tree/main/localization).
 
-The strings used within the SDK can be customised by having a `Localizable.strings` in your app for the desired language and by configuring the flow using the `withCustomLocalization()` method on the configuration builder.
+The strings used within the SDK can be customized by having a `Localizable.strings` in your app for the desired language and by configuring the flow using the `withCustomLocalization()` method on the configuration builder.
 
 ```swift
 let config = try! OnfidoAuthConfig.builder()
@@ -218,7 +218,9 @@ let config = try! OnfidoAuthConfig.builder()
 You can supply partial translations, meaning if you do not include a translation for a particular key our translation will be used instead. You can also name the strings file with the translated keys as you desire, but the name of the file will have to be provided to the SDK as a parameter to the `withCustomLocalization()` method i.e. `withCustomLocalization(andTableName: "MY_CUSTOM_STRINGS_FILE")`. Additionally, you can specify the bundle from which to read the strings file i.e `withCustomLocalization(andTableName: "MY_CUSTOM_STRINGS_FILE", in: myBundle)`.
 
 ### User consent screen
-This screen collects privacy consent from US users so Onfido can handle their biometric information and is an optional screen. It contains the required consent language as well as links to Onfido's policies and terms of use. The user must select "Accept" to progress and continue with the flow. The content is available in English only, and is not translatable.
+This step contains a screen to collect US end users' privacy consent for Onfido. It contains the required consent language as well as links to Onfido's policies and terms of use. This is an optional screen.
+
+The user must select "Accept" to progress and continue with the flow. The content is available in English only, and is not translatable.
 
 ```swift
 let config = try! OnfidoAuthConfig.builder()
@@ -234,4 +236,4 @@ let config = try! OnfidoAuthConfig.builder()
 
 If you choose to disable this step, you must incorporate the required consent language and links to Onfido's policies and terms of use into your own application's flow before your US user starts interacting with the Onfido SDK.
 
-For more information about this step, and how to collect user consent for Onfido, please visit our page on [Privacy Notices and Consent](http://developers.onfido.com/guide/onfido-privacy-notices-and-consent).
+For more information about this step, and how to collect user consent for Onfido, please visit [Onfido Privacy Notices and Consent](http://developers.onfido.com/guide/onfido-privacy-notices-and-consent).
