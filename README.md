@@ -6,6 +6,7 @@
 * [Getting started](#getting-started)
 * [Handling callbacks](#handling-callbacks)
 * [Customizing the SDK](#customizing-the-sdk)
+* [User consent screen](#user-consent-screen)
 
 ## Overview
 
@@ -67,6 +68,8 @@ let flow = OnfidoAuthFlow(withConfiguration: config)
         // Callback when flow ends
     })
 ```
+
+Use `.withRetryCount()` to set the number of repeat attempts a user can do after the first unsuccessful try.
 
 ### 4. Starting the flow
 Run the flow from the view controller you want the flow to be presented from e.g. `self`, where `self` is a view controller.
@@ -200,11 +203,6 @@ The SDK comes with out-of-the-box translations for the following locales:
 
 ### Language customization
 
-**Note:**
-
-- If the strings translations change it will result in a MINOR version change, therefore you are responsible for testing your translated layout in case you are using this feature.
-- When adding custom translations, please make sure you add the whole set of keys we have in the [example `Localizable.strings` file](https://github.com/onfido/onfido-auth-sdk-ios/tree/main/localization).
-
 The strings used within the SDK can be customized by having a `Localizable.strings` in your app for the desired language and by configuring the flow using the `withCustomLocalization()` method on the configuration builder.
 
 ```swift
@@ -217,7 +215,13 @@ let config = try! OnfidoAuthConfig.builder()
 
 You can supply partial translations, meaning if you do not include a translation for a particular key our translation will be used instead. You can also name the strings file with the translated keys as you desire, but the name of the file will have to be provided to the SDK as a parameter to the `withCustomLocalization()` method i.e. `withCustomLocalization(andTableName: "MY_CUSTOM_STRINGS_FILE")`. Additionally, you can specify the bundle from which to read the strings file i.e `withCustomLocalization(andTableName: "MY_CUSTOM_STRINGS_FILE", in: myBundle)`.
 
-### User consent screen
+**Note:**
+
+- If the strings translations change it will result in a MINOR version change, therefore you are responsible for testing your translated layout in case you are using this feature.
+- When adding custom translations, please make sure you add the whole set of keys we have in the [example `Localizable.strings` file](https://github.com/onfido/onfido-auth-sdk-ios/tree/main/localization).
+
+
+## User consent screen
 This step contains a screen to collect US end users' privacy consent for Onfido. It contains the required consent language as well as links to Onfido's policies and terms of use. This is an optional screen.
 
 The user must select "Accept" to progress and continue with the flow. The content is available in English only, and is not translatable.
